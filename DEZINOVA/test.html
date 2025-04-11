@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ant Mascot | Partners</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #1d3557;
+            --accent-color: #a8dadc;
+            --light-color: #f1faee;
+            --dark-color: #457b9d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: var(--secondary-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"></path></svg>');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo i {
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .mission-statement {
+            font-style: italic;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .mission-statement::before,
+        .mission-statement::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: absolute;
+        }
+
+        .mission-statement::before {
+            top: -10px;
+            left: 10px;
+        }
+
+        .mission-statement::after {
+            bottom: -20px;
+            right: 10px;
+        }
+
+        /* Login Section */
+        .login-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            max-width: 500px;
+            margin: -50px auto 3rem auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-title {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: #aaa;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+            background-color: #c1121f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(230, 57, 70, 0.3);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .signup-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animation */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1.4rem;
+            }
+
+            .login-section {
+                padding: 1.5rem;
+                margin: -30px auto 2rem auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo floating">
+                <i class="fas fa-crown"></i>
+                <span>Ant Mascot | Partners</span>
+            </div>
+            <h2 class="tagline">Empowering Partnerships, Enabling Growth</h2>
+            <p>Partner with Ant Mascot to connect, collaborate, and create impactful business solutions.</p>
+            <div class="mission-statement">Your success is our mission</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="login-section">
+            <h3 class="login-title">Get Started Now</h3>
+            <p style="text-align: center; margin-bottom: 1.5rem;">Enter your credentials to access your account</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+
+                <div class="signup-link">
+                    Don't have an account? <a href="/DEZINOVA/registration.html" id="signupLink">Sign Up</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // JavaScript - Separate functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            // Form submission
+            const loginForm = document.getElementById('loginForm');
+            const signupLink = document.getElementById('signupLink');
+
+            // Login form handling
+            loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Simple validation
+                if (!email || !password) {
+                    showAlert('Please fill in all fields', 'error');
+                    return;
+                }
+
+                // Simulate login process
+                showAlert('Logging in...', 'info');
+
+                // In a real app, you would make an API call here
+                setTimeout(() => {
+                    showAlert('Login successful! Redirecting...', 'success');
+                    // Redirect would happen here
+                }, 1500);
+            });
+
+            // Signup link handling
+            signupLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                showAlert('Sign up functionality would appear here', 'info');
+            });
+
+            // Show alert function
+            function showAlert(message, type) {
+                // Remove any existing alerts
+                const existingAlert = document.querySelector('.custom-alert');
+                if (existingAlert) {
+                    existingAlert.remove();
+                }
+
+                // Create alert element
+                const alert = document.createElement('div');
+                alert.className = `custom-alert ${type}`;
+                alert.textContent = message;
+
+                // Style the alert
+                alert.style.position = 'fixed';
+                alert.style.top = '20px';
+                alert.style.right = '20px';
+                alert.style.padding = '15px 25px';
+                alert.style.borderRadius = '5px';
+                alert.style.color = 'white';
+                alert.style.zIndex = '1000';
+                alert.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                alert.style.animation = 'fadeIn 0.3s ease-out';
+
+                // Set background color based on type
+                const colors = {
+                    'error': '#e63946',
+                    'success': '#2a9d8f',
+                    'info': '#1d3557'
+                };
+                alert.style.backgroundColor = colors[type] || '#1d3557';
+
+                // Add to document
+                document.body.appendChild(alert);
+
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    alert.style.animation = 'fadeOut 0.3s ease-out';
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 300);
+                }, 3000);
+            }
+
+            // Add keyframe animations dynamically
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(-20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; transform: translateY(0); }
+                    to { opacity: 0; transform: translateY(-20px); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+
+</html>

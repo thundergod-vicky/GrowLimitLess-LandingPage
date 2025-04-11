@@ -1,0 +1,139 @@
+:root {
+    --primary: blueviolet;
+    --secondary: #f0f2f5;
+    --text: #333;
+    --border: #d9d9d9;
+    --progress-bg: #e9ecef;
+    --progress-bar: #4CAF50;
+}
+
+.progress-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.progress {
+    height: 10px;
+    background-color: var(--progress-bg);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--progress-bar);
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: var(--text);
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: url("/DEZINOVA/img/registration\ page\ bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: var(--text);
+    min-height: 100vh;
+    margin-top: 20px;
+    /* margin-bottom: 20px; */
+}
+
+/* Hero section */
+.hero {
+    background: linear-gradient(135deg, blueviolet, rgb(35, 1, 66));
+    color: white;
+}
+
+.hero h1 {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.hero p {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease 0.2s forwards;
+}
+
+.hero ul {
+    padding-left: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease 0.4s forwards;
+}
+
+.hero li {
+    margin-bottom: 10px;
+}
+
+.hero blockquote {
+    font-style: italic;
+    border-left: 3px solid white;
+    padding-left: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease 0.6s forwards;
+}
+
+/* Form section */
+.form-section {
+    background: white;
+}
+
+.form-section h2 {
+    color: var(--primary);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+
+    .hero,
+    .form-section {
+        padding: 2rem !important;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero p,
+    .hero li {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .hero,
+    .form-section {
+        padding: 1.5rem !important;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .form-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .btn {
+        padding: 0.75rem;
+    }
+}

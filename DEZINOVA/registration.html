@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowLimitLess - Register</title>
+    <link href="/DEZINOVA/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/DEZINOVA/css/registration.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid px-0">
+        <div class="row g-0 min-vh-100">
+            <div class="hero col-lg-6 col-md-12 p-lg-5 p-md-4 p-3">
+                <div class="d-flex flex-column h-100 justify-content-center">
+                    <h1 class="display-5 mb-4">GrowGlobal Welcomes You to a Global Ecosystem!</h1>
+                    <p class="lead mb-4">GrowGlobal has built a powerful platform designed for businesses like yours.
+                        Whether you're an emerging trader or a seasoned manufacturer, your next big opportunity starts
+                        here.</p>
+                    <ul class="mb-4">
+                        <li class="mb-2">Share your details and gain access to a global marketplace</li>
+                        <li class="mb-2">Connect with high-value buyers and sellers instantly</li>
+                        <li class="mb-2">Step into a world where businesses grow beyond borders</li>
+                        <li class="mb-2">Share your details to gain Rewards</li>
+                    </ul>
+                    <blockquote class="blockquote mt-auto">"Your success is our mission"</blockquote>
+                </div>
+            </div>
+            <div class="form-section col-lg-6 col-md-12 p-lg-5 p-md-4 p-3">
+                <div class="d-flex flex-column h-100 justify-content-center">
+                    <h2 class="mb-4">Get Started Now</h2>
+                    <div class="progress-container mb-4">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <small class="progress-text">0% Complete</small>
+                    </div>
+                    <form id="registrationForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Enter your full name</label>
+                            <input type="text" class="form-control form-control-lg" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Enter your email</label>
+                            <input type="email" class="form-control form-control-lg" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="designation" class="form-label">Enter your designation</label>
+                            <input type="text" class="form-control form-control-lg" id="designation" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Enter your phone number</label>
+                            <input type="tel" class="form-control form-control-lg" id="phone" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="international">
+                            <label class="form-check-label" for="international">Do you trade internationally?</label>
+                        </div>
+                        <div class="mb-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">I agree to the terms and services</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 py-3">Next →</button>
+                    </form>
+                    <div class="mt-4 text-center">
+                        Already have an account? <a href="/DEZINOVA/test.html">Sign in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Track form completion
+        const form = document.getElementById('registrationForm');
+        const progressBar = document.querySelector('.progress-bar');
+        const progressText = document.querySelector('.progress-text');
+        const totalFields = 16; // Total fields across all forms
+        const pageFields = 6; // Fields on this page
+
+
+        function updateProgress() {
+            let filledFields = 0;
+            const savedData = JSON.parse(localStorage.getItem('formProgress') || '{}');
+
+            // Check current page fields
+            ['name', 'email', 'designation', 'phone'].forEach(id => {
+                if (document.getElementById(id).value.trim() !== '') filledFields++;
+            });
+            if (document.getElementById('international').checked) filledFields++;
+            if (document.getElementById('terms').checked) filledFields++;
+
+            // Calculate percentage of total form (0-100%)
+            const percent = Math.round((filledFields / totalFields) * 100);
+            progressBar.style.width = `${percent}%`;
+            progressText.textContent = `${percent}% Complete`;
+
+            // Save current progress
+            localStorage.setItem('formProgress', JSON.stringify({
+                completed: filledFields,
+                percent: percent,
+                page1: filledFields
+            }));
+        }
+
+
+
+
+        // Initialize progress from localStorage or 0
+        const savedProgress = JSON.parse(localStorage.getItem('formProgress') || '{"completed":0,"percent":0}');
+        progressBar.style.width = `${savedProgress.percent}%`;
+        progressText.textContent = `${savedProgress.percent}% Complete`;
+
+        // Add event listeners to all form fields
+        form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', updateProgress);
+            input.addEventListener('change', updateProgress);
+        });
+
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Save form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                designation: document.getElementById('designation').value,
+                phone: document.getElementById('phone').value,
+                international: document.getElementById('international').checked,
+                terms: document.getElementById('terms').checked
+            };
+            localStorage.setItem('formData', JSON.stringify(formData));
+
+            // Redirect to next page
+            window.location.href = 'registration-page2.html';
+        });
+    </script>
+</body>
+
+</html>

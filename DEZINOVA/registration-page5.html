@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Account</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/registration.css" rel="stylesheet">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .full-screen-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .hero-section {
+            flex: 1;
+            background-color: blueviolet;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .form-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .otp-input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+            margin: 0 5px;
+        }
+
+        .countdown {
+            color: #6c757d;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .resend-otp {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="full-screen-container">
+        <div class="hero-section">
+            <div>
+                <h1 class="mb-4">Verify Your Account</h1>
+                <p class="mb-4">We've sent OTPs to your email and phone number.</p>
+                <ul class="mb-4">
+                    <li>Check your email inbox for 6-digit code</li>
+                    <li>Check your phone for SMS with 6-digit code</li>
+                    <li>Enter both codes to verify your account</li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-section">
+            <div class="form-container">
+                <h2 class="mb-3">Enter Verification Codes</h2>
+                <div class="progress-container mb-4">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small class="progress-text">0% Complete</small>
+                </div>
+                <form id="otpForm">
+                    <div class="form-group mb-4">
+                        <label>Email OTP</label>
+                        <div class="d-flex">
+                            <input type="text" maxlength="6" class="form-control otp-input w-100" required>
+
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label>Phone OTP</label>
+                        <div class="d-flex">
+                            <input type="text" maxlength="6" class="form-control otp-input w-100" required>
+                            <!-- <input type="text" maxlength="1" class="form-control otp-input" required>
+                            <input type="text" maxlength="1" class="form-control otp-input" required>
+                            <input type="text" maxlength="1" class="form-control otp-input" required>
+                            <input type="text" maxlength="1" class="form-control otp-input" required>
+                            <input type="text" maxlength="1" class="form-control otp-input" required> -->
+                        </div>
+                        <div class="countdown mt-3">
+                            Resend OTP in <span id="timer">30</span> seconds
+                        </div>
+                        <div class="text-center resend-otp">
+                            <button type="button" id="resendBtn" class="btn btn-link">Resend OTP</button>
+                        </div>
+                    </div>
+                    <div class="form-navigation">
+                        <button type="submit" class="btn btn-primary w-100">Verify Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // OTP input auto-focus
+            $('.otp-input').keyup(function () {
+                if (this.value.length === 1) {
+                    $(this).next('.otp-input').focus();
+                }
+            });
+
+            // Countdown timer
+            let timeLeft = 30;
+            const timer = $('#timer');
+            const resendDiv = $('.resend-otp');
+            const countdownDiv = $('.countdown');
+
+            const countdown = setInterval(function () {
+                timeLeft--;
+                timer.text(timeLeft);
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    countdownDiv.hide();
+                    resendDiv.show();
+                }
+            }, 1000);
+
+            // Resend OTP
+            $('#resendBtn').click(function () {
+                alert('New OTPs have been sent to your email and phone');
+                timeLeft = 30;
+                timer.text(timeLeft);
+                resendDiv.hide();
+                countdownDiv.show();
+
+                const newCountdown = setInterval(function () {
+                    timeLeft--;
+                    timer.text(timeLeft);
+
+                    if (timeLeft <= 0) {
+                        clearInterval(newCountdown);
+                        countdownDiv.hide();
+                        resendDiv.show();
+                    }
+                }, 1000);
+            });
+
+            // Progress tracking
+            const totalFields = 16;
+            const pageFields = 2; // 6 email OTP + 6 phone OTP digits
+            const savedProgress = JSON.parse(localStorage.getItem('formProgress') || '{"completed":0,"percent":0}');
+
+            function updateProgress() {
+                let filledFields = (savedProgress.page1 || 0) + (savedProgress.page2 || 0) +
+                    (savedProgress.page3 || 0) + (savedProgress.page4 || 0); // Start with completed fields from previous pages
+
+                // Check current page fields
+                $('.otp-input').each(function () {
+                    if ($(this).val().trim() !== '') filledFields++;
+                });
+
+                // Calculate percentage of total form (0-100%)
+                const percent = Math.round((filledFields / totalFields) * 100);
+                $('.progress-bar').css('width', `${percent}%`);
+                $('.progress-text').text(`${percent}% Complete`);
+
+                // Save current progress
+                localStorage.setItem('formProgress', JSON.stringify({
+                    completed: filledFields,
+                    percent: percent,
+                    page1: savedProgress.page1 || 0,
+                    page2: savedProgress.page2 || 0,
+                    page3: savedProgress.page3 || 0,
+                    page4: savedProgress.page4 || 0,
+                    page5: filledFields - (savedProgress.page1 || 0) - (savedProgress.page2 || 0) -
+                        (savedProgress.page3 || 0) - (savedProgress.page4 || 0)
+                }));
+            }
+
+            // Initialize progress from localStorage
+            $('.progress-bar').css('width', `${savedProgress.percent}%`);
+            $('.progress-text').text(`${savedProgress.percent}% Complete`);
+
+            // Add event listeners to all OTP fields
+            $('.otp-input').on('input', updateProgress);
+
+            // Form submission
+            $('#otpForm').submit(function (e) {
+                e.preventDefault();
+
+                // Collect all registration data from localStorage
+                const registrationData = {
+                    ...JSON.parse(localStorage.getItem('formData') || '{}'),
+                    ...JSON.parse(localStorage.getItem('bankData') || '{}'),
+                    ...JSON.parse(localStorage.getItem('companyData') || '{}'),
+                    ...JSON.parse(localStorage.getItem('passwordData') || '{}'),
+                    emailOtp: $('#email-otp').val(),
+                };
+
+                // Example API call
+                fetch('http://localhost:8000/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(registrationData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Clear localStorage after successful submission
+                            localStorage.removeItem('formData');
+                            localStorage.removeItem('bankData');
+                            localStorage.removeItem('passwordData');
+                            localStorage.removeItem('formProgress');
+
+                            // Redirect to success page
+                            window.location.href = 'registration-complete.html';
+                        } else {
+                            alert('Registration failed: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Registration failed. Please try again.');
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>

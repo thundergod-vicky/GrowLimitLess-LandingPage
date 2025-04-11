@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowLimitLess - Register</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/registration2.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>GrowGlobal Welcomes You to a Global Ecosystem!</h1>
+            <p>GrowGlobal has built a powerful platform designed for businesses like yours. Whether you're an emerging
+                trader or a seasoned manufacturer, your next big opportunity starts here.</p>
+            <ul>
+                <li>Share your details and gain access to a global marketplace</li>
+                <li>Connect with high-value buyers and sellers instantly</li>
+                <li>Step into a world where businesses grow beyond borders</li>
+                <li>Share your details to gain Rewards</li>
+            </ul>
+            <blockquote>"Your success is our mission"</blockquote>
+        </div>
+        <div class="form-section">
+            <h2 class="text-center mb-4">Let's Continue</h2>
+            <div class="progress-container mb-4">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+                <small class="progress-text">50% Complete</small>
+            </div>
+            <form id="businessForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="name">Name of the Business</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="txtGSTIN">GSTIN number</label>
+                            <input type="text" id="txtGSTIN" class="form-control"
+                                pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
+                                title="Invalid GST Number." required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="PANnumber">PAN</label>
+                            <input type="text" id="PANnumber" class="form-control" pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]"
+                                title="Invalid PAN number" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="director">Director or CEO Name</label>
+                            <input type="text" id="director" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="phone">Contact Number</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="email">Business Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="nature">Nature of Your Business</label>
+                            <input type="text" id="nature" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="location">Business Location</label>
+                            <input type="text" id="location" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="website">Company Website</label>
+                            <input type="url" id="website" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="products">Your hero products</label>
+                            <input type="text" id="products" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="turnover1">FY 2024-25 turnover and P/L</label>
+                            <input type="text" id="turnover1" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="turnover2">FY 2023-24 turnover and P/L</label>
+                            <input type="text" id="turnover2" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="international">
+                        <label class="form-check-label" for="international">
+                            Interested in (exports, access to capital, access to apps to reduce operational costs,
+                            other)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="myfile" class="form-label">Add attachments (BL, PAN or GSTIN)</label>
+                    <input class="form-control" type="file" id="myfile" accept="image/*,application/pdf" name="myfile">
+                </div>
+                <div class="form-group">
+                    <a href="/DEZINOVA/index.html">
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <i class="fa fa-arrow-right me-2"></i> Register
+                        </button>
+                    </a>
+                </div>
+            </form>
+            <div class="signin-link text-center mt-4">
+                Already have an account? <a href="test.html" class="text-decoration-none">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Track form completion
+        const form = document.getElementById('businessForm');
+        const progressBar = document.querySelector('.progress-bar');
+        const progressText = document.querySelector('.progress-text');
+        const totalFields = 19; // Total fields across both forms
+        const firstPageFields = 6; // Fields completed on first page
+
+        function updateProgress() {
+            let filledFields = firstPageFields; // Start with fields from first page
+            // Check all text inputs
+            ['name', 'txtGSTIN', 'PANnumber', 'director', 'phone', 'email',
+                'nature', 'location', 'website', 'products', 'turnover1', 'turnover2'].forEach(id => {
+                    if (document.getElementById(id).value.trim() !== '') filledFields++;
+                });
+            // Check checkbox
+            if (document.getElementById('international').checked) filledFields++;
+
+            // Calculate percentage of total form (0-100%)
+            const percent = Math.round((filledFields / totalFields) * 100);
+            progressBar.style.width = `${percent}%`;
+            progressText.textContent = `${percent}% Complete`;
+        }
+
+        // Initialize progress
+        updateProgress();
+
+        // Add event listeners to all form fields
+        form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', updateProgress);
+            input.addEventListener('change', updateProgress);
+        });
+
+        // Add event listener to form submission
+        document.getElementById('businessForm').addEventListener('submit', function (event) {
+            event.preventDefault();  // Prevent the form from submitting normally
+
+            // Create FormData object
+            const formData = new FormData();
+
+            // Get all form inputs and append them to the FormData object
+            formData.append('businessName', document.getElementById('name').value);
+            formData.append('gstin', document.getElementById('txtGSTIN').value);
+            formData.append('pan', document.getElementById('PANnumber').value);
+            formData.append('directorName', document.getElementById('director').value);
+            formData.append('contactNumber', document.getElementById('phone').value);
+            formData.append('businessEmail', document.getElementById('email').value);
+            formData.append('businessNature', document.getElementById('nature').value);
+            formData.append('businessLocation', document.getElementById('location').value);
+            formData.append('website', document.getElementById('website').value);
+            formData.append('heroProducts', document.getElementById('products').value);
+            formData.append('fy2425Turnover', document.getElementById('turnover1').value);
+            formData.append('fy2324Turnover', document.getElementById('turnover2').value);
+            formData.append('exportInterest', document.getElementById('international').checked);
+            formData.append('myfile', document.getElementById('myfile').files[0]);
+
+            // For debugging, log the formData to the console
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+
+
+            buisnessData = formDataObject;
+            userData = JSON.parse(localStorage.getItem('userData'));
+
+            fetch('http://localhost:8000/save-user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...buisnessData, ...userData }) // Convert object to JSON string
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Form submitted successfully!');
+                    // Redirects to the first pagea
+                    window.location.href = 'registration-page3.html';
+
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Error submitting form!');
+                });
+        });
+
+        // Redirects to the first pagea
+        // window.location.href = 'index.html';
+    </script>
+</body>
+
+</html>
