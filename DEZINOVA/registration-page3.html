@@ -41,6 +41,21 @@
                         <small class="progress-text">0% Complete</small>
                     </div>
                     <form id="bankDetailsForm">
+                        <div class="form-group mb-4">
+                            <label>Do you also want to sign up for your own payment gateway?</label>
+                            <div class="d-flex flex-wrap gap-4 gap-md-4 mt-2">
+                                <div class="form-check me-3 me-md-0">
+                                    <input class="form-check-input" type="radio" name="paymentGateway"
+                                        id="paymentGatewayYes" value="yes" required>
+                                    <label class="form-check-label" for="paymentGatewayYes">Yes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentGateway"
+                                        id="paymentGatewayNo" value="no" required>
+                                    <label class="form-check-label" for="paymentGatewayNo">No</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group mb-3">
                             <label for="ifsc-code">Enter IFSC Code</label>
                             <div class="d-flex align-items-center mb-2">
