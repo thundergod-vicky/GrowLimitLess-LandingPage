@@ -1,0 +1,102 @@
+:root {
+    --primary: blueviolet;
+    --secondary: #f0f2f5;
+    --text: #333;
+    --border: #d9d9d9;
+    --progress-bg: #e9ecef;
+    --progress-bar: #4CAF50;
+}
+
+.progress-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.progress {
+    height: 10px;
+    background-color: var(--progress-bg);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--progress-bar);
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: var(--text);
+}
+
+/* Base styles */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* Hero section */
+.hero-section {
+    background: linear-gradient(135deg, blueviolet, rgb(35, 1, 66));
+    color: white;
+    min-height: 50vh;
+}
+
+.hero-section h1 {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.hero-section p {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease 0.2s forwards;
+}
+
+.hero-section ul {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease 0.4s forwards;
+}
+
+/* Form section */
+.form-section {
+    background: white;
+}
+
+.form-section h2 {
+    color: var(--primary);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .hero-section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    .form-section {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-section {
+        min-height: 100vh;
+    }
+}
