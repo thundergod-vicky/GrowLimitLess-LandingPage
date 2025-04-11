@@ -8,6 +8,8 @@
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/registration-page5.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         body,
         html {
@@ -221,7 +223,8 @@
                 };
 
                 // Example API call
-                fetch('http://localhost:8000/register', {
+
+                fetch('https://partnersgll-backend-souvik.onrender.com/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -237,10 +240,25 @@
                             localStorage.removeItem('passwordData');
                             localStorage.removeItem('formProgress');
 
+
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Your Data has been saved",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+
                             // Redirect to success page
                             window.location.href = 'index.html';
                         } else {
-                            alert('Registration failed: ' + data.message);
+
+                            Swal.fire({
+                                title: "Your Data is Saved and Secure with us",
+                                icon: "success",
+                                draggable: true
+                            });
                         }
                     })
                     .catch(error => {

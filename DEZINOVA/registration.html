@@ -7,6 +7,7 @@
     <title>GrowLimitLess - Register</title>
     <link href="/DEZINOVA/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/DEZINOVA/css/registration.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -133,6 +134,18 @@
                 terms: document.getElementById('terms').checked
             };
             localStorage.setItem('formData', JSON.stringify(formData));
+
+
+            document.getElementById('terms').addEventListener('change', function () {
+                if (this.checked) {
+                    Swal.fire({
+                        title: "Terms and Conditions",
+                        icon: "success",
+                        draggable: true
+                    });
+                }
+            });
+
 
             // Redirect to next page
             window.location.href = 'registration-page2.html';

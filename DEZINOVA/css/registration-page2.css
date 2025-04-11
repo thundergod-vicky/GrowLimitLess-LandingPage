@@ -246,6 +246,33 @@
      background-color: #e0e0e0;
  }
 
+ .certificate-upload {
+     margin: 1.5rem 0;
+     padding: 1rem;
+     background-color: var(--light-gray);
+     border-radius: 0.5rem;
+ }
+
+ .certificate-upload label {
+     display: block;
+     margin-bottom: 0.5rem;
+     font-weight: 500;
+ }
+
+ .certificate-upload input[type="file"] {
+     padding: 0.5rem;
+     border: 1px solid var(--border-color);
+     border-radius: 0.25rem;
+     width: 100%;
+ }
+
+ .certificate-upload small {
+     display: block;
+     margin-top: 0.25rem;
+     font-size: 0.8rem;
+     color: var(--dark-gray);
+ }
+
  .auto-fill-hint {
      margin-top: 8px;
      color: var(--dark-gray);

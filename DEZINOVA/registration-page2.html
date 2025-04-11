@@ -7,7 +7,7 @@
     <title>Your Business Deserves a Bigger Stage!</title>
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/registration2.css" rel="stylesheet">
+    <link href="css/registration-page2.css" rel="stylesheet">
     <style>
         .company-type {
             display: flex;
@@ -55,7 +55,7 @@
 <body>
     <div class="container-fluid p-0 min-vh-100" style="padding-top: 20px;">
         <div class="row g-0 min-vh-100">
-            <div class="col-lg-6 hero-section d-flex align-items-center"
+            <div class="col-lg-6 hero-section d-flex align-items-center min-vh-100"
                 style="background-color: blueviolet; color: white;">
                 <div class="p-5">
                     <h1>Your Business Deserves a Bigger Stage!</h1>
@@ -108,6 +108,33 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="certificate-upload" style="display: none;">
+                            <div class="form-group mb-3" id="msme-upload-container">
+                                <label for="msme-certificate">Upload MSME Certificate (PDF/Image)</label>
+                                <input type="file" id="msme-certificate" class="form-control"
+                                    accept=".pdf,.jpg,.jpeg,.png">
+                                <small class="text-muted">Required for Traders</small>
+                            </div>
+                            <div class="form-group mb-3" id="oem-upload-container">
+                                <label for="oem-certificate">Upload OEM Certificate (PDF/Image)</label>
+                                <input type="file" id="oem-certificate" class="form-control"
+                                    accept=".pdf,.jpg,.jpeg,.png">
+                                <small class="text-muted">Required for Manufacturers</small>
+                            </div>
+                        </div>
+                        <div class="certificate-upload">
+                            <div class="form-group mb-3">
+                                <label for="fy24-25-data">FY 24-25 Data (Optional)</label>
+                                <input type="number" id="fy24-25-data" class="form-control"
+                                    placeholder="Enter amount(Optional)">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="fy23-24-data">FY 23-24 Data (Optional)</label>
+                                <input type="number" id="fy23-24-data" class="form-control"
+                                    placeholder="Enter amount(Optional)">
+                            </div>
+                        </div>
+
                         <div class="form-navigation d-flex justify-content-between">
                             <button type="button" class="btn btn-outline-secondary">Back</button>
                             <button type="submit" class="btn btn-primary">Next →</button>
@@ -137,6 +164,18 @@
                 manufacturerOption.classList.add('selected');
                 traderOption.classList.remove('selected');
                 selectedType = 'manufacturer';
+                document.querySelector('.certificate-upload').style.display = 'block';
+                document.getElementById('msme-upload-container').style.display = 'none';
+                document.getElementById('oem-upload-container').style.display = 'block';
+            });
+
+            traderOption.addEventListener('click', function () {
+                traderOption.classList.add('selected');
+                manufacturerOption.classList.remove('selected');
+                selectedType = 'trader';
+                document.querySelector('.certificate-upload').style.display = 'block';
+                document.getElementById('msme-upload-container').style.display = 'block';
+                document.getElementById('oem-upload-container').style.display = 'none';
             });
 
             // GST Verification with actual API
@@ -160,7 +199,7 @@
                 verifyBtn.disabled = true;
 
                 try {
-                    const response = await fetch(`http://sheet.gstincheck.co.in/check/eca71d871876bfeafcc9755e526f3cba/${gstNumber}`);
+                    const response = await fetch(`http://sheet.gstincheck.co.in/check/262500cc3be01c84505a267d44d49d58/${gstNumber}`);
 
                     if (!response.ok) {
                         throw new Error('Failed to verify GST');
@@ -185,6 +224,20 @@
                 } finally {
                     verifyBtn.innerHTML = 'Verify';
                     verifyBtn.disabled = false;
+                }
+            });
+
+            // Certificate upload validation
+            document.getElementById('companyForm').addEventListener('submit', function (e) {
+                if (selectedType === 'trader' && !document.getElementById('msme-certificate').files.length) {
+                    e.preventDefault();
+                    alert('Please upload MSME Certificate');
+                    return;
+                }
+                if (selectedType === 'manufacturer' && !document.getElementById('oem-certificate').files.length) {
+                    e.preventDefault();
+                    alert('Please upload OEM Certificate');
+                    return;
                 }
             });
 
