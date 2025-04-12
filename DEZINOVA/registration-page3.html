@@ -176,6 +176,37 @@
             window.location.href = 'registration-page4.html';
         });
     </script>
+
+    <!-- Points Counter -->
+    <link rel="stylesheet" href="css/points-counter.css">
+    <div class="points-counter">
+        Points: <span id="points">60</span>/100
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 60%"></div>
+        </div>
+    </div>
+
+    <script>
+        // Update points in sessionStorage
+        sessionStorage.setItem('points', '60');
+        document.getElementById('points').textContent = sessionStorage.getItem('points');
+    </script>
+
+
+
+    <link rel="stylesheet" href="css/points-counter.css">
+    <div class="points-counter">
+        Points: <span id="points">60</span>/100
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 60%"></div>
+        </div>
+    </div>
+
+    <script>
+        // Update points in sessionStorage
+        sessionStorage.setItem('points', '60');
+        document.getElementById('points').textContent = sessionStorage.getItem('points');
+    </script>
 </body>
 
 </html>

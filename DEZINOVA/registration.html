@@ -151,6 +151,22 @@
             window.location.href = 'registration-page2.html';
         });
     </script>
+    <!-- Points Counter -->
+    <link rel="stylesheet" href="css/points-counter.css">
+    <div class="points-counter">
+        Points: <span id="points">20</span>/100
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 20%"></div>
+        </div>
+    </div>
+
+    <script>
+        // Store points in sessionStorage to persist across pages
+        if (!sessionStorage.getItem('points')) {
+            sessionStorage.setItem('points', '20');
+        }
+        document.getElementById('points').textContent = sessionStorage.getItem('points');
+    </script>
 </body>
 
 </html>

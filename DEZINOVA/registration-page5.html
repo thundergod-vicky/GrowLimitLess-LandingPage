@@ -98,15 +98,15 @@
                         </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label>Phone OTP</label>
-                        <div class="d-flex">
-                            <input type="text" maxlength="6" class="form-control otp-input w-100" required>
-                            <!-- <input type="text" maxlength="1" class="form-control otp-input" required>
+                        <!-- <label>Phone OTP</label> -->
+                        <!-- <div class="d-flex"> -->
+                        <!-- <input type="text" maxlength="6" class="form-control otp-input w-100" required> -->
+                        <!-- <input type="text" maxlength="1" class="form-control otp-input" required>
                             <input type="text" maxlength="1" class="form-control otp-input" required>
                             <input type="text" maxlength="1" class="form-control otp-input" required>
                             <input type="text" maxlength="1" class="form-control otp-input" required>
                             <input type="text" maxlength="1" class="form-control otp-input" required> -->
-                        </div>
+                        <!-- </div> -->
                         <div class="countdown mt-3">
                             Resend OTP in <span id="timer">30</span> seconds
                         </div>
@@ -220,9 +220,10 @@
                     ...JSON.parse(localStorage.getItem('companyData') || '{}'),
                     ...JSON.parse(localStorage.getItem('passwordData') || '{}'),
                     emailOtp: $('#email-otp').val(),
+                    // ...JSON.parse(localStorage.getItem(''))
                 };
 
-                // Example API call
+                // Main API call
 
                 fetch('https://partnersgll-backend-souvik.onrender.com/register', {
                     method: 'POST',
@@ -242,11 +243,9 @@
 
 
                             Swal.fire({
-                                position: "top-end",
+                                title: "Your Data is Gone For Good",
                                 icon: "success",
-                                title: "Your Data has been saved",
-                                showConfirmButton: false,
-                                timer: 1500
+                                draggable: true
                             });
 
 
@@ -267,6 +266,20 @@
                     });
             });
         });
+    </script>
+    <link rel="stylesheet" href="css/points-counter.css">
+    <div class="points-counter">
+        Points: <span id="points">100</span>/100
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 100%"></div>
+        </div>
+        <a href="index.html"><button type="submit" class="btn btn-primary w-100">Claim GLL ion</button></a>
+    </div>
+
+    <script>
+        // Update points in sessionStorage
+        sessionStorage.setItem('points', '100');
+        document.getElementById('points').textContent = sessionStorage.getItem('points');
     </script>
 </body>
 

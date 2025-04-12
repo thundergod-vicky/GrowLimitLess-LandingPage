@@ -85,7 +85,7 @@
                             <div class="d-flex align-items-center mb-2">
                                 <input type="text" id="gst-number" class="form-control" placeholder="GST number"
                                     required>
-                                <button type="button" class="btn btn-primary verify-btn" id="verify-btn">Verify</button>
+                                <!-- <button type="button" class="btn btn-primary verify-btn" id="verify-btn">Verify</button> -->
                             </div>
                             <div id="company-details" class="company-details" style="display: none;">
                                 <div><strong>Company Name:</strong> <span id="company-name"></span></div>
@@ -124,14 +124,16 @@
                         </div>
                         <div class="certificate-upload">
                             <div class="form-group mb-3">
-                                <label for="fy24-25-data">FY 24-25 Data (Optional)</label>
-                                <input type="number" id="fy24-25-data" class="form-control"
-                                    placeholder="Enter amount(Optional)">
+                                <label for="fy24-25-data">Upload FY 24-25 Data (Optional)</label>
+                                <input type="file" id="fy24-25-data" class="form-control"
+                                    accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.doc,.docx">
+                                <small class="text-muted">PDF, Excel, Word or Image files</small>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="fy23-24-data">FY 23-24 Data (Optional)</label>
-                                <input type="number" id="fy23-24-data" class="form-control"
-                                    placeholder="Enter amount(Optional)">
+                                <label for="fy23-24-data">Upload FY 23-24 Data (Optional)</label>
+                                <input type="file" id="fy23-24-data" class="form-control"
+                                    accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.doc,.docx">
+                                <small class="text-muted">PDF, Excel, Word or Image files</small>
                             </div>
                         </div>
 
@@ -160,10 +162,13 @@
                 selectedType = 'trader';
             });
 
+            let selected = 'null'
+
             manufacturerOption.addEventListener('click', function () {
                 manufacturerOption.classList.add('selected');
                 traderOption.classList.remove('selected');
                 selectedType = 'manufacturer';
+                selected = selectedType;
                 document.querySelector('.certificate-upload').style.display = 'block';
                 document.getElementById('msme-upload-container').style.display = 'none';
                 document.getElementById('oem-upload-container').style.display = 'block';
@@ -173,6 +178,7 @@
                 traderOption.classList.add('selected');
                 manufacturerOption.classList.remove('selected');
                 selectedType = 'trader';
+                selected = selectedType;
                 document.querySelector('.certificate-upload').style.display = 'block';
                 document.getElementById('msme-upload-container').style.display = 'block';
                 document.getElementById('oem-upload-container').style.display = 'none';
@@ -282,9 +288,67 @@
             document.getElementById('trader-option').addEventListener('click', updateProgress);
             document.getElementById('manufacturer-option').addEventListener('click', updateProgress);
 
+
             // Form submission
             document.getElementById('companyForm').addEventListener('submit', function (e) {
                 e.preventDefault();
+
+
+                const cloudName = "dcu7d7boi"; // e.g., 'demo'
+                const uploadPreset = "partnergll"; // e.g., 'unsigned_pdf_upload'
+
+                async function uploadToCloudinary(file) {
+                    const url = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
+                    const formData = new FormData();
+
+                    formData.append("file", file);
+                    formData.append("upload_preset", uploadPreset);
+
+                    try {
+                        const res = await fetch(url, {
+                            method: "POST",
+                            body: formData
+                        });
+                        const data = await res.json();
+                        return data.secure_url; // This is the public URL
+
+                    } catch (error) {
+                        console.error("Upload failed:", error);
+                        return null;
+                    }
+                }
+
+                async function uploadAll() {
+                    const files = [
+                        selected == 'manufacturer' ? document.getElementById("msme-certificate").files[0] : selected == 'trader' ? document.getElementById("oem-certificate").files[0] : '',
+                        document.getElementById("fy23-24-data").files[0],
+                        document.getElementById("fy24-25-data").files[0]
+                    ];
+
+                    // for (let i = 0; i < files.length; i++) {
+                    //     if (!files[i]) {
+                    //         alert(`PDF ${i + 1} is missing.`);
+                    //         return;
+                    //     }
+                    // }
+
+                    const uploadedURLs = [];
+
+                    for (let i = 0; i < files.length; i++) {
+                        const url = await uploadToCloudinary(files[i]);
+                        if (url) {
+                            uploadedURLs.push(url);
+                            console.log(`PDF ${i + 1} uploaded:`, url);
+                        } else {
+                            alert(`Failed to upload PDF ${i + 1}`);
+                        }
+                    }
+
+                    alert("All PDFs uploaded successfully!");
+                    console.log("All uploaded URLs:", uploadedURLs);
+                }
+
+
 
                 // Save form data to localStorage
                 const formData = {
@@ -298,6 +362,20 @@
                 window.location.href = 'registration-page3.html';
             });
         });
+    </script>
+    <!-- Points Counter -->
+    <link rel="stylesheet" href="css/points-counter.css">
+    <div class="points-counter">
+        Points: <span id="points">40</span>/100
+        <div class="progress-container">
+            <div class="progress-bar" style="width: 40%"></div>
+        </div>
+    </div>
+
+    <script>
+        // Update points in sessionStorage
+        sessionStorage.setItem('points', '40');
+        document.getElementById('points').textContent = sessionStorage.getItem('points');
     </script>
 </body>
 
